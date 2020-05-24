@@ -5,19 +5,21 @@ matrix:
   - os: linux
     compiler: gcc
     sudo: required
-  - os: linux
-    compiler: clang
-    sudo: required
-  - os: osx
-    compiler: gcc
-  - os: osx
-    compiler: clang
+#  - os: linux
+#    compiler: clang
+#    sudo: required
+#  - os: osx
+#    compiler: gcc
+#  - os: osx
+#    compiler: clang
 
 before_install:
 
 # Travis branch-specific clone problem workaround:
 - git config remote.origin.fetch +refs/heads/*:refs/remotes/origin/*
 - git fetch
+- git branch -avv
+- git log --oneline --graph --decorate -20
 
 - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
     pip install --user scikit-ci-addons==0.15.0;
