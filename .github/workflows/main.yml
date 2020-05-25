@@ -7,13 +7,10 @@ on:
     branches: [ master ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-
     - run: git remote -v
     - name: Fetch branches
       run: |
@@ -23,6 +20,7 @@ jobs:
     - run: git log --oneline --graph --decorate -20
     - run: ./bootstrap
     - run: ./configure
-    - run: make
+    - run: env | sort
+    - run: git clone --depth=1 --branch=run-test-suite $(git remote git config --get remote.origin.url) tests/run-test-suite
+    - run: git clone --depth=1 --branch=run-test-suite-code $(git remote git config --get remote.origin.url) tests/run-test-suite/test
     - run: make test-all
-
