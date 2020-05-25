@@ -15,13 +15,13 @@ jobs:
     - name: Fetch branches
       run: |
         git config remote.origin.fetch +refs/heads/*:refs/remotes/origin/*
-        git fetch
+        git fetch --unshallow
     - run: git branch -avv
     - run: git log --oneline --graph --decorate -20
     - run: ./bootstrap
     - run: ./configure
     - run: env | sort
     - run: git config --get remote.origin.url
-    - run: git clone --depth=1 --branch=run-test-suite $(git config --get remote.origin.url) tests/run-test-suite
-    - run: git clone --depth=1 --branch=run-test-suite-code $(git config --get remote.origin.url) tests/run-test-suite/test
+    - run: git clone --branch=run-test-suite $(git config --get remote.origin.url) tests/run-test-suite
+    - run: git clone --branch=run-test-suite-code $(git config --get remote.origin.url) tests/run-test-suite/test
     - run: make test-all
