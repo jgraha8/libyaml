@@ -21,6 +21,7 @@ jobs:
     - run: ./bootstrap
     - run: ./configure
     - run: env | sort
-    - run: git clone --depth=1 --branch=run-test-suite $(git remote git config --get remote.origin.url) tests/run-test-suite
-    - run: git clone --depth=1 --branch=run-test-suite-code $(git remote git config --get remote.origin.url) tests/run-test-suite/test
+    - run: git config --get remote.origin.url
+    - run: git clone --depth=1 --branch=run-test-suite $(git config --get remote.origin.url) tests/run-test-suite
+    - run: git clone --depth=1 --branch=run-test-suite-code $(git config --get remote.origin.url) tests/run-test-suite/test
     - run: make test-all
